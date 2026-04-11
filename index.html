@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Vibe Check | Mimi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #ff758c;
+            --secondary: #ff7eb3;
+            --bg: #0f172a;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            transition: all 0.5s ease;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        h2 { font-weight: 600; margin-bottom: 10px; font-size: 1.5rem; }
+        p.subtitle { color: #94a3b8; margin-bottom: 30px; font-size: 0.9rem; }
+
+        .options-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .option-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 117, 140, 0.4);
+        }
+
+        #final-screen { display: none; }
+
+        .highlight { color: var(--primary); font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <div class="glass-card" id="quiz-card">
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+
+        <div id="question-container">
+            <h2 id="greeting">Hey <span class="highlight">Aayusha</span>!</h2>
+            <p class="subtitle" id="q-text">Ready for a quick 20-question vibe check?</p>
+            <div class="options-grid" id="options">
+                <button class="option-btn" onclick="startQuiz()">Let's Do It ✨</button>
+            </div>
+        </div>
+
+        <div id="final-screen">
+            <h2 id="final-title">100% Vibe Match! 🚀</h2>
+            <p id="final-msg">Mimi, you passed the test. We officially have a lot to talk about.</p>
+            <button class="option-btn" style="margin-top:20px" onclick="location.reload()">Take it again?</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "Coffee or Tea to start the day?", a: ["Caffeine Addict ☕", "Tea Enthusiast 🫖"] },
+            { q: "The Vibe: Mountains or Beach?", a: ["Mountain Air 🏔️", "Beach Waves 🌊"] },
+            { q: "Pineapple on pizza?", a: ["Masterpiece 🍕", "Absolutely Not! ❌"] },
+            { q: "Early bird or Night owl?", a: ["Early Riser ☀️", "Night Owl 🌙"] },
+            { q: "Travel Style?", a: ["Luxury Resort 🏨", "Road Trip 🚗"] },
+            { q: "Movie Night?", a: ["Horror Marathon 👻", "Rom-Com Vibes 💖"] },
+            { q: "Superpower choice?", a: ["Invisibility 🫥", "Flying 🕊️"] },
+            { q: "Spicy or Sweet?", a: ["Keep it Spicy 🌶️", "Sweet Tooth 🍩"] },
+            { q: "Saturday Night?", a: ["Party Hard 💃", "Netflix & Chill 🍿"] },
+            { q: "Music Taste?", a: ["Pop Energy 🎤", "Lo-fi Chill 🎧"] },
+            { q: "Hidden Talent?", a: ["Pro Singer 🎤", "Star Dancer 💃"] },
+            { q: "Team Pet?", a: ["Team Dog 🐶", "Team Cat 🐱"] },
+            { q: "The Weather?", a: ["Rainy Vibes 🌧️", "Sunny Days ☀️"] },
+            { q: "Scrolling Habit?", a: ["Instagram 📸", "TikTok 📱"] },
+            { q: "Dream Destination?", a: ["Paris 🥖", "Tokyo 🗼"] },
+            { q: "Punctuality?", a: ["Early Bird ⌚", "Fashionably Late 💅"] },
+            { q: "The Snack?", a: ["French Fries 🍟", "Chocolate Cake 🍰"] },
+            { q: "The Fear?", a: ["Spiders 🕷️", "Heights 🧗"] },
+            { q: "Favorite Hobby?", a: ["Gaming 🎮", "Exploring 🗺️"] },
+            { q: "The Big One: Coffee soon?", a: ["Definitely! 😊", "Let's see... 😉"] }
+        ];
+
+        let currentIdx = 0;
+
+        function startQuiz() {
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = questions[currentIdx];
+            document.getElementById('greeting').innerText = `Question ${currentIdx + 1}/20`;
+            document.getElementById('q-text').innerText = q.q;
+            
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            
+            q.a.forEach(answer => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = answer;
+                btn.onclick = nextQuestion;
+                optionsDiv.appendChild(btn);
+            });
+
+            updateProgress();
+        }
+
+        function nextQuestion() {
+            if (currentIdx < questions.length - 1) {
+                currentIdx++;
+                showQuestion();
+            } else {
+                showFinal();
+            }
+        }
+
+        function updateProgress() {
+            const percent = ((currentIdx) / questions.length) * 100;
+            document.getElementById('progress-bar').style.width = percent + "%";
+        }
+
+        function showFinal() {
+            document.getElementById('progress-bar').style.width = "100%";
+            document.getElementById('question-container').style.display = 'none';
+            document.getElementById('final-screen').style.display = 'block';
+            
+            // Trigger Confetti
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff758c', '#ff7eb3', '#ffffff']
+            });
+        }
+    </script>
+</body>
+</html>
