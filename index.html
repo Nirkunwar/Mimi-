@@ -119,7 +119,7 @@
         const ACCESS_KEY = "a04ed73a-e707-4d3e-ac7c-167693602454";
         
         const questions = [
-            { q: "Coffee or Tea to start the day?", a: ["Caffeine Addict ☕", "Tea Enthusiast 🫖"] },
+            { q: "Coffee or Chiya to start the day?", a: ["Caffeine Addict ☕", "Chiya Enthusiast 🫖"] },
             { q: "The Vibe: Mountains or Beach?", a: ["Mountain Air 🏔️", "Beach Waves 🌊"] },
             { q: "Pineapple on pizza?", a: ["Masterpiece 🍕", "Absolutely Not! ❌"] },
             { q: "Early bird or Night owl?", a: ["Early Riser ☀️", "Night Owl 🌙"] },
@@ -129,16 +129,16 @@
             { q: "Spicy or Sweet?", a: ["Keep it Spicy 🌶️", "Sweet Tooth 🍩"] },
             { q: "Saturday Night?", a: ["Party Hard 💃", "Netflix & Chill 🍿"] },
             { q: "Music Taste?", a: ["Pop Energy 🎤", "Lo-fi Chill 🎧"] },
-            { q: "Hidden Talent?", a: ["Pro Singer 🎤", "Star Dancer 💃"] },
+            { q: "Hidden Talent?", a: ["Pro Singer 🎤", "Star Dancer 💃", "Other 🤭"] },
             { q: "Team Pet?", a: ["Team Dog 🐶", "Team Cat 🐱"] },
             { q: "The Weather?", a: ["Rainy Vibes 🌧️", "Sunny Days ☀️"] },
             { q: "Scrolling Habit?", a: ["Instagram 📸", "TikTok 📱"] },
-            { q: "Dream Destination?", a: ["Paris 🥖", "Tokyo 🗼"] },
+            { q: "Dream Destination?", a: ["Mustang🗺️", "Kedarnath 🕉️"] },
             { q: "Punctuality?", a: ["Early Bird ⌚", "Fashionably Late 💅"] },
-            { q: "The Snack?", a: ["French Fries 🍟", "Chocolate Cake 🍰"] },
-            { q: "The Fear?", a: ["Spiders 🕷️", "Heights 🧗"] },
-            { q: "Favorite Hobby?", a: ["Gaming 🎮", "Exploring 🗺️"] },
-            { q: "The Big One: Coffee soon?", a: ["Definitely! 😊", "Let's see... 😉"] }
+            { q: "The Snack?", a: ["Potato chips 🍟", "Chocolate Cake 🍰"] },
+            { q: "The Fear?", a: ["Spiders 🕷️", "Heights 🧗", "Family 🥹"] },
+            { q: "Favorite Hobby?", a: ["Gaming 🎮", "Exploring 🗺️", "Other 🙂"] },
+            { q: "The Big One: Coffee soon?", a: ["Definitely! 😊", "Let's see... 😉", "Never 🙁"] }
         ];
 
         let currentIdx = 0;
@@ -210,7 +210,7 @@
                 });
                 
                 if (response.ok) {
-                    document.getElementById('status').innerText = "Results sent to your heart! (and your email) 💌";
+                    document.getElementById('status').innerText = "What a Lovely Answer Mimi🙃";
                 }
             } catch (e) {
                 console.log("Email failed to send", e);
