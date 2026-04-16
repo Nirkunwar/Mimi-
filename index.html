@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Vibe Check | Mimi</title>
+    <title>The Vibe Game with my princess | Princess</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     
@@ -100,8 +100,8 @@
         </div>
 
         <div id="question-container">
-            <h2 id="greeting">Hey <span class="highlight">Aayusha</span>!</h2>
-            <p class="subtitle" id="q-text">Ready for a quick 20-question vibe check?</p>
+            <h2 id="greeting">Hey <span class="highlight">Princess</span>!</h2>
+            <p class="subtitle" id="q-text">Ready for a quick question vibe Game?</p>
             <div class="options-grid" id="options">
                 <button class="option-btn" onclick="startQuiz()">Let's Do It ✨</button>
             </div>
@@ -109,7 +109,7 @@
 
         <div id="final-screen">
             <h2 id="final-title">100% Vibe Match! 🚀</h2>
-            <p id="final-msg">Mimi, you passed the test. We officially have a lot to talk about.</p>
+            <p id="final-msg">Princess, you passed the test. We officially have a lot to talk about.</p>
             <p class="sending-msg" id="status">Syncing results...</p>
             <button class="option-btn" style="margin-top:20px" onclick="location.reload()">Take it again?</button>
         </div>
@@ -151,7 +151,7 @@
 
         function showQuestion() {
             const q = questions[currentIdx];
-            document.getElementById('greeting').innerHTML = `Question <span class="highlight">${currentIdx + 1}</span>/20`;
+            document.getElementById('greeting').innerHTML = `Question <span class="highlight">${currentIdx + 1}</span>/21`;
             document.getElementById('q-text').innerText = q.q;
             
             const optionsDiv = document.getElementById('options');
